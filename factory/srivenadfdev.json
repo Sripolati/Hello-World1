@@ -1,0 +1,9 @@
+{
+	"name": "srivenadfdev",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "d087b8b4-6dd0-475d-a833-7f707562b1d9",
+		"tenantId": "0345e0e7-15e4-4547-877c-0fc7f7758baa"
+	}
+}
