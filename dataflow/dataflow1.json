@@ -5,6 +5,10 @@
 		"typeProperties": {
 			"sources": [
 				{
+					"dataset": {
+						"referenceName": "DelimitedText1",
+						"type": "DatasetReference"
+					},
 					"name": "source1"
 				}
 			],
@@ -38,7 +42,8 @@
 				"          UnitPrice as string",
 				"     ),",
 				"     allowSchemaDrift: true,",
-				"     validateSchema: false) ~> source1",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source1",
 				"source1 select(mapColumn(",
 				"          PurchaseOrderID,",
 				"          CustomerCode,",
