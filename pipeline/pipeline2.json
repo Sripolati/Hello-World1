@@ -19,12 +19,12 @@
 						"referenceName": "DelimitedText3",
 						"type": "DatasetReference",
 						"parameters": {
-							"FolderName": {
-								"value": "@pipeline().parameters.FolderName",
+							"ContainerName": {
+								"value": "@pipeline().parameters.ContainerName",
 								"type": "Expression"
 							},
-							"ContainerName": {
-								"value": "@pipeline().parameters.ContrainterName",
+							"FolderName": {
+								"value": "@pipeline().parameters.FolderName",
 								"type": "Expression"
 							}
 						}
@@ -34,6 +34,7 @@
 					],
 					"storeSettings": {
 						"type": "AzureBlobStorageReadSettings",
+						"recursive": true,
 						"enablePartitionDiscovery": false
 					},
 					"formatSettings": {
@@ -76,13 +77,8 @@
 								"source": {
 									"type": "DelimitedTextSource",
 									"storeSettings": {
-										"type": "AzureBlobStorageReadSettings",
+										"type": "AzureBlobFSReadSettings",
 										"recursive": true,
-										"wildcardFolderPath": {
-											"value": "@pipeline().parameters.FolderName",
-											"type": "Expression"
-										},
-										"wildcardFileName": "*.csv",
 										"enablePartitionDiscovery": false
 									},
 									"formatSettings": {
@@ -108,11 +104,21 @@
 							},
 							"inputs": [
 								{
-									"referenceName": "DelimitedText3",
+									"referenceName": "DelimitedText4",
 									"type": "DatasetReference",
 									"parameters": {
-										"FolderName": "StorageFiles",
-										"ContainerName": "input2"
+										"FileName": {
+											"value": "@item().name",
+											"type": "Expression"
+										},
+										"ContainerName": {
+											"value": "@pipeline().parameters.ContainerName",
+											"type": "Expression"
+										},
+										"FolderName": {
+											"value": "@pipeline().parameters.FolderName",
+											"type": "Expression"
+										}
 									}
 								}
 							],
@@ -138,7 +144,7 @@
 				"type": "string",
 				"defaultValue": "StorageFiles"
 			},
-			"ContrainterName": {
+			"ContainerName": {
 				"type": "string",
 				"defaultValue": "input2"
 			}

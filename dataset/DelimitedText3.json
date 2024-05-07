@@ -6,13 +6,11 @@
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
-			"FolderName": {
-				"type": "string",
-				"defaultValue": "StorageFiles"
-			},
 			"ContainerName": {
-				"type": "string",
-				"defaultValue": "input2"
+				"type": "string"
+			},
+			"FolderName": {
+				"type": "string"
 			}
 		},
 		"folder": {
@@ -37,55 +35,6 @@
 			"firstRowAsHeader": true,
 			"quoteChar": "\""
 		},
-		"schema": [
-			{
-				"name": "Index",
-				"type": "String"
-			},
-			{
-				"name": "Customer Id",
-				"type": "String"
-			},
-			{
-				"name": "First Name",
-				"type": "String"
-			},
-			{
-				"name": "Last Name",
-				"type": "String"
-			},
-			{
-				"name": "Company",
-				"type": "String"
-			},
-			{
-				"name": "City",
-				"type": "String"
-			},
-			{
-				"name": "Country",
-				"type": "String"
-			},
-			{
-				"name": "Phone 1",
-				"type": "String"
-			},
-			{
-				"name": "Phone 2",
-				"type": "String"
-			},
-			{
-				"name": "Email",
-				"type": "String"
-			},
-			{
-				"name": "Subscription Date",
-				"type": "String"
-			},
-			{
-				"name": "Website",
-				"type": "String"
-			}
-		]
+		"schema": []
 	}
 }
