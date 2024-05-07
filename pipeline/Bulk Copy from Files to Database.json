@@ -16,13 +16,24 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataset": {
-						"referenceName": "GetMetadataDataset1",
-						"type": "DatasetReference"
+						"referenceName": "DelimitedText3",
+						"type": "DatasetReference",
+						"parameters": {
+							"FolderName": {
+								"value": "@pipeline().parameters.FolderName",
+								"type": "Expression"
+							},
+							"ContainerName": {
+								"value": "@pipeline().parameters.ContrainerName",
+								"type": "Expression"
+							}
+						}
 					},
-					"fieldList": [],
+					"fieldList": [
+						"childItems"
+					],
 					"storeSettings": {
-						"type": "AzureBlobFSReadSettings",
-						"recursive": true
+						"type": "AzureBlobStorageReadSettings"
 					},
 					"formatSettings": {
 						"type": "DelimitedTextReadSettings"
@@ -61,21 +72,30 @@
 							"userProperties": [],
 							"typeProperties": {
 								"source": {
-									"type": "DelimitedTextSource",
-									"storeSettings": {
-										"type": "AzureBlobFSReadSettings",
-										"recursive": true
-									},
-									"formatSettings": {
-										"type": "DelimitedTextReadSettings"
-									}
+									"type": "AzureSqlSource",
+									"queryTimeout": "02:00:00",
+									"partitionOption": "None"
 								},
 								"sink": {
 									"type": "AzureSqlSink",
 									"tableOption": "autoCreate"
 								},
-								"enableStaging": false
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
 							},
+							"inputs": [
+								{
+									"referenceName": "AzureSqlDatabaseSinkDataset",
+									"type": "DatasetReference"
+								}
+							],
 							"outputs": [
 								{
 									"referenceName": "AzureSqlDatabaseSinkDataset1",
@@ -93,6 +113,20 @@
 				}
 			}
 		],
+		"parameters": {
+			"FileName": {
+				"type": "string",
+				"defaultValue": "*csv"
+			},
+			"FolderName": {
+				"type": "string",
+				"defaultValue": "StorageFiles"
+			},
+			"ContrainerName": {
+				"type": "string",
+				"defaultValue": "input2"
+			}
+		},
 		"annotations": [],
 		"lastPublishTime": "2024-04-18T18:21:53Z"
 	},

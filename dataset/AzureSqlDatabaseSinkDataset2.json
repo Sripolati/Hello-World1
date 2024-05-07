@@ -1,5 +1,5 @@
 {
-	"name": "AzureSqlDatabaseSinkDataset",
+	"name": "AzureSqlDatabaseSinkDataset2",
 	"properties": {
 		"description": "Connection to your destination data store.",
 		"linkedServiceName": {
@@ -21,6 +21,5 @@
 				"type": "Expression"
 			}
 		}
-	},
-	"type": "Microsoft.DataFactory/factories/datasets"
+	}
 }

@@ -6,10 +6,6 @@
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
-			"FileName": {
-				"type": "string",
-				"defaultValue": "*.csv"
-			},
 			"FolderName": {
 				"type": "string",
 				"defaultValue": "StorageFiles"
@@ -27,10 +23,6 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": {
-					"value": "@dataset().FileName",
-					"type": "Expression"
-				},
 				"folderPath": {
 					"value": "@dataset().FolderName",
 					"type": "Expression"
