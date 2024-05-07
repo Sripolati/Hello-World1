@@ -1,13 +1,14 @@
 {
-	"name": "Bulk Copy from Files to Database",
+	"name": "Load_SQL_DBTable_From_ADLS_CsvFile",
 	"properties": {
+		"description": "Passing file name dinamically as table name",
 		"activities": [
 			{
-				"name": "Get Files",
+				"name": "MetadataOfFiles",
 				"type": "GetMetadata",
 				"dependsOn": [],
 				"policy": {
-					"timeout": "7.00:00:00",
+					"timeout": "0.12:00:00",
 					"retry": 0,
 					"retryIntervalInSeconds": 30,
 					"secureOutput": false,
@@ -20,15 +21,21 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"SourceContainer": {
+								"value": "@pipeline().parameters.SourceContainer",
+								"type": "Expression"
+							},
+							"SourceDirectory": {
 								"value": "@pipeline().parameters.SourceDirectory",
 								"type": "Expression"
 							}
 						}
 					},
-					"fieldList": [],
+					"fieldList": [
+						"itemName"
+					],
 					"storeSettings": {
 						"type": "AzureBlobFSReadSettings",
-						"recursive": true
+						"enablePartitionDiscovery": false
 					},
 					"formatSettings": {
 						"type": "DelimitedTextReadSettings"
@@ -36,11 +43,11 @@
 				}
 			},
 			{
-				"name": "ForEachFile",
+				"name": "PassingFileNames",
 				"type": "ForEach",
 				"dependsOn": [
 					{
-						"activity": "Get Files",
+						"activity": "MetadataOfFiles",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -49,16 +56,16 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('Get Files').output.childItems",
+						"value": "@activity('MetadataOfFiles').output.itemName",
 						"type": "Expression"
 					},
 					"activities": [
 						{
-							"name": "CopyFiles",
+							"name": "CopyFilestoSqlDatabase",
 							"type": "Copy",
 							"dependsOn": [],
 							"policy": {
-								"timeout": "7.00:00:00",
+								"timeout": "0.12:00:00",
 								"retry": 0,
 								"retryIntervalInSeconds": 30,
 								"secureOutput": false,
@@ -70,25 +77,26 @@
 									"type": "DelimitedTextSource",
 									"storeSettings": {
 										"type": "AzureBlobFSReadSettings",
-										"recursive": true
+										"recursive": true,
+										"enablePartitionDiscovery": false
 									},
 									"formatSettings": {
 										"type": "DelimitedTextReadSettings"
 									}
 								},
-								"sink": {
-									"type": "AzureSqlSink",
-									"tableOption": "autoCreate"
-								},
 								"enableStaging": false
 							},
-							"outputs": [
+							"inputs": [
 								{
-									"referenceName": "AzureSqlDatabaseSinkDataset1",
+									"referenceName": "GetMetadataDataset1",
 									"type": "DatasetReference",
 									"parameters": {
-										"sinkTableName": {
-											"value": "@item().name",
+										"SourceContainer": {
+											"value": "@pipeline().parameters.SourceContainer",
+											"type": "Expression"
+										},
+										"SourceDirectory": {
+											"value": "@pipeline().parameters.SourceDirectory",
 											"type": "Expression"
 										}
 									}
@@ -109,8 +117,6 @@
 				"defaultValue": "input"
 			}
 		},
-		"annotations": [],
-		"lastPublishTime": "2024-04-18T18:21:53Z"
-	},
-	"type": "Microsoft.DataFactory/factories/pipelines"
+		"annotations": []
+	}
 }

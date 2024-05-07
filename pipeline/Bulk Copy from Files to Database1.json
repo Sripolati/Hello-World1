@@ -1,5 +1,5 @@
 {
-	"name": "Bulk Copy from Files to Database",
+	"name": "Bulk Copy from Files to Database1",
 	"properties": {
 		"activities": [
 			{
@@ -16,16 +16,22 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataset": {
-						"referenceName": "GetMetadataDataset1",
+						"referenceName": "GetMetadataDataset2",
 						"type": "DatasetReference",
 						"parameters": {
 							"SourceContainer": {
+								"value": "@pipeline().parameters.SourceContainer",
+								"type": "Expression"
+							},
+							"SourceDirectory": {
 								"value": "@pipeline().parameters.SourceDirectory",
 								"type": "Expression"
 							}
 						}
 					},
-					"fieldList": [],
+					"fieldList": [
+						"childItems"
+					],
 					"storeSettings": {
 						"type": "AzureBlobFSReadSettings",
 						"recursive": true
@@ -81,19 +87,7 @@
 									"tableOption": "autoCreate"
 								},
 								"enableStaging": false
-							},
-							"outputs": [
-								{
-									"referenceName": "AzureSqlDatabaseSinkDataset1",
-									"type": "DatasetReference",
-									"parameters": {
-										"sinkTableName": {
-											"value": "@item().name",
-											"type": "Expression"
-										}
-									}
-								}
-							]
+							}
 						}
 					]
 				}
@@ -101,16 +95,12 @@
 		],
 		"parameters": {
 			"SourceContainer": {
-				"type": "string",
-				"defaultValue": "raw"
+				"type": "string"
 			},
 			"SourceDirectory": {
-				"type": "string",
-				"defaultValue": "input"
+				"type": "string"
 			}
 		},
-		"annotations": [],
-		"lastPublishTime": "2024-04-18T18:21:53Z"
-	},
-	"type": "Microsoft.DataFactory/factories/pipelines"
+		"annotations": []
+	}
 }
