@@ -17,13 +17,7 @@
 				"typeProperties": {
 					"dataset": {
 						"referenceName": "GetMetadataDataset1",
-						"type": "DatasetReference",
-						"parameters": {
-							"SourceContainer": {
-								"value": "@pipeline().parameters.SourceDirectory",
-								"type": "Expression"
-							}
-						}
+						"type": "DatasetReference"
 					},
 					"fieldList": [],
 					"storeSettings": {
@@ -99,16 +93,6 @@
 				}
 			}
 		],
-		"parameters": {
-			"SourceContainer": {
-				"type": "string",
-				"defaultValue": "raw"
-			},
-			"SourceDirectory": {
-				"type": "string",
-				"defaultValue": "input"
-			}
-		},
 		"annotations": [],
 		"lastPublishTime": "2024-04-18T18:21:53Z"
 	},
