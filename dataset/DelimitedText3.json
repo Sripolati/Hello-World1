@@ -5,6 +5,20 @@
 			"referenceName": "AzureBlobStorage1",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"FileName": {
+				"type": "string",
+				"defaultValue": "*.csv"
+			},
+			"FolderName": {
+				"type": "string",
+				"defaultValue": "StorageFiles"
+			},
+			"ContainerName": {
+				"type": "string",
+				"defaultValue": "input2"
+			}
+		},
 		"folder": {
 			"name": "Practice"
 		},
@@ -13,7 +27,18 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"container": "input2"
+				"fileName": {
+					"value": "@dataset().FileName",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@dataset().FolderName",
+					"type": "Expression"
+				},
+				"container": {
+					"value": "@dataset().ContainerName",
+					"type": "Expression"
+				}
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",

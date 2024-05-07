@@ -70,14 +70,28 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataset": {
-						"referenceName": "DelimitedText2",
-						"type": "DatasetReference"
+						"referenceName": "DelimitedText3",
+						"type": "DatasetReference",
+						"parameters": {
+							"FileName": {
+								"value": "@pipeline().parameters.FileName",
+								"type": "Expression"
+							},
+							"FolderName": {
+								"value": "@pipeline().parameters.FolderName",
+								"type": "Expression"
+							},
+							"ContainerName": {
+								"value": "@pipeline().parameters.ContrainterName",
+								"type": "Expression"
+							}
+						}
 					},
 					"fieldList": [
 						"childItems"
 					],
 					"storeSettings": {
-						"type": "AzureBlobFSReadSettings",
+						"type": "AzureBlobStorageReadSettings",
 						"enablePartitionDiscovery": false
 					},
 					"formatSettings": {
@@ -93,11 +107,11 @@
 			},
 			"FolderName": {
 				"type": "string",
-				"defaultValue": "input2"
+				"defaultValue": "StorageFiles"
 			},
 			"ContrainterName": {
 				"type": "string",
-				"defaultValue": "Blob containers"
+				"defaultValue": "input2"
 			}
 		},
 		"annotations": []
