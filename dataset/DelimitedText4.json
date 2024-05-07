@@ -9,10 +9,10 @@
 			"FileName": {
 				"type": "string"
 			},
-			"FolderName": {
+			"ContrainterName": {
 				"type": "string"
 			},
-			"ContrainterName": {
+			"FolderName": {
 				"type": "string"
 			}
 		},
