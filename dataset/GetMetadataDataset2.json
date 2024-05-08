@@ -1,5 +1,5 @@
 {
-	"name": "SourceDataset1",
+	"name": "GetMetadataDataset2",
 	"properties": {
 		"description": "Connection to your source data store.",
 		"linkedServiceName": {
@@ -7,17 +7,11 @@
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
-			"fileName": {
-				"type": "string",
-				"defaultValue": "address.csv"
-			},
 			"SourceContainer": {
-				"type": "string",
-				"defaultValue": "raw"
+				"type": "string"
 			},
 			"SourceDirectory": {
-				"type": "string",
-				"defaultValue": "input"
+				"type": "string"
 			}
 		},
 		"annotations": [],
@@ -25,10 +19,6 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": {
-					"value": "@dataset().fileName",
-					"type": "Expression"
-				},
 				"folderPath": {
 					"value": "@dataset().SourceDirectory",
 					"type": "Expression"
@@ -43,6 +33,5 @@
 			"quoteChar": "\""
 		},
 		"schema": []
-	},
-	"type": "Microsoft.DataFactory/factories/datasets"
+	}
 }

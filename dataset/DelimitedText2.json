@@ -10,8 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"folderPath": "input",
-				"fileSystem": "raw"
+				"fileSystem": "input2"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
@@ -20,34 +19,53 @@
 		},
 		"schema": [
 			{
-				"name": "PurchaseOrderID",
+				"name": "Index",
 				"type": "String"
 			},
 			{
-				"name": "CustomerCode",
+				"name": "Customer Id",
 				"type": "String"
 			},
 			{
-				"name": "ProductCode",
+				"name": "First Name",
 				"type": "String"
 			},
 			{
-				"name": "EmployeeCode",
+				"name": "Last Name",
 				"type": "String"
 			},
 			{
-				"name": "PurchaseOrderDate",
+				"name": "Company",
 				"type": "String"
 			},
 			{
-				"name": "Quantity",
+				"name": "City",
 				"type": "String"
 			},
 			{
-				"name": "UnitPrice",
+				"name": "Country",
+				"type": "String"
+			},
+			{
+				"name": "Phone 1",
+				"type": "String"
+			},
+			{
+				"name": "Phone 2",
+				"type": "String"
+			},
+			{
+				"name": "Email",
+				"type": "String"
+			},
+			{
+				"name": "Subscription Date",
+				"type": "String"
+			},
+			{
+				"name": "Website",
 				"type": "String"
 			}
 		]
-	},
-	"type": "Microsoft.DataFactory/factories/datasets"
+	}
 }

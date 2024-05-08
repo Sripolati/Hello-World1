@@ -2,57 +2,18 @@
 	"name": "AzureSqlTable1",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "AzureSqlDatabase1",
+			"referenceName": "AzureSqlDatabase3",
 			"type": "LinkedServiceReference"
 		},
-		"parameters": {
-			"TableName": {
-				"type": "string"
-			}
+		"folder": {
+			"name": "Practice"
 		},
 		"annotations": [],
 		"type": "AzureSqlTable",
-		"schema": [
-			{
-				"name": "PurchaseOrderID",
-				"type": "int",
-				"precision": 10
-			},
-			{
-				"name": "CustomerCode",
-				"type": "int",
-				"precision": 10
-			},
-			{
-				"name": "ProductCode",
-				"type": "int",
-				"precision": 10
-			},
-			{
-				"name": "EmployeeCode",
-				"type": "int",
-				"precision": 10
-			},
-			{
-				"name": "PurchaseOrderDate",
-				"type": "date"
-			},
-			{
-				"name": "Quantity",
-				"type": "int",
-				"precision": 10
-			},
-			{
-				"name": "UnitPrice",
-				"type": "decimal",
-				"precision": 8,
-				"scale": 6
-			}
-		],
+		"schema": [],
 		"typeProperties": {
-			"schema": "dbo",
+			"schema": "SalesLT",
 			"table": "PurchaseOrders"
 		}
-	},
-	"type": "Microsoft.DataFactory/factories/datasets"
+	}
 }

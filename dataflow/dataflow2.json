@@ -5,26 +5,14 @@
 		"typeProperties": {
 			"sources": [
 				{
-					"dataset": {
-						"referenceName": "DelimitedText3",
-						"type": "DatasetReference"
-					},
 					"name": "source1"
 				}
 			],
 			"sinks": [
 				{
-					"dataset": {
-						"referenceName": "DelimitedText5",
-						"type": "DatasetReference"
-					},
 					"name": "sink1"
 				},
 				{
-					"dataset": {
-						"referenceName": "DelimitedText6",
-						"type": "DatasetReference"
-					},
 					"name": "sink2"
 				}
 			],
@@ -47,8 +35,7 @@
 				"          UnitPrice as string",
 				"     ),",
 				"     allowSchemaDrift: true,",
-				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> source1",
+				"     validateSchema: false) ~> source1",
 				"source1 cast(output(",
 				"          CustomerCode as integer",
 				"     ),",
@@ -57,52 +44,16 @@
 				"     disjoint: false) ~> split1@(CustomerCode1, CustomerCode2)",
 				"split1@CustomerCode1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     input(",
-				"          CustomerID as string,",
-				"          NameStyle as string,",
-				"          Title as string,",
-				"          FirstName as string,",
-				"          MiddleName as string,",
-				"          LastName as string,",
-				"          Suffix as string,",
-				"          CompanyName as string,",
-				"          SalesPerson as string,",
-				"          EmailAddress as string,",
-				"          Phone as string,",
-				"          PasswordHash as string,",
-				"          PasswordSalt as string,",
-				"          rowguid as string,",
-				"          ModifiedDate as string",
-				"     ),",
-				"     umask: 0022,",
-				"     preCommands: [],",
-				"     postCommands: [],",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> sink1",
+				"     skipDuplicateMapOutputs: true,",
+				"     preCommands: [],",
+				"     postCommands: []) ~> sink1",
 				"split1@CustomerCode2 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     input(",
-				"          CustomerID as string,",
-				"          NameStyle as string,",
-				"          Title as string,",
-				"          FirstName as string,",
-				"          MiddleName as string,",
-				"          LastName as string,",
-				"          Suffix as string,",
-				"          CompanyName as string,",
-				"          SalesPerson as string,",
-				"          EmailAddress as string,",
-				"          Phone as string,",
-				"          PasswordHash as string,",
-				"          PasswordSalt as string,",
-				"          rowguid as string,",
-				"          ModifiedDate as string",
-				"     ),",
-				"     umask: 0022,",
-				"     preCommands: [],",
-				"     postCommands: [],",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> sink2"
+				"     skipDuplicateMapOutputs: true,",
+				"     preCommands: [],",
+				"     postCommands: []) ~> sink2"
 			]
 		}
 	}

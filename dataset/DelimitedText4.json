@@ -2,15 +2,37 @@
 	"name": "DelimitedText4",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "AzureDataLakeStorage1",
+			"referenceName": "AzureDataLakeStorage3",
 			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"FileName": {
+				"type": "string"
+			},
+			"ContrainterName": {
+				"type": "string"
+			},
+			"FolderName": {
+				"type": "string"
+			}
 		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileSystem": "input"
+				"fileName": {
+					"value": "@dataset().FileName",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@dataset().FolderName",
+					"type": "Expression"
+				},
+				"fileSystem": {
+					"value": "@dataset().ContrainterName",
+					"type": "Expression"
+				}
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
@@ -19,66 +41,17 @@
 		},
 		"schema": [
 			{
-				"name": "CustomerID",
+				"name": "ProductCode",
 				"type": "String"
 			},
 			{
-				"name": "NameStyle",
+				"name": "ProductName",
 				"type": "String"
 			},
 			{
-				"name": "Title",
-				"type": "String"
-			},
-			{
-				"name": "FirstName",
-				"type": "String"
-			},
-			{
-				"name": "MiddleName",
-				"type": "String"
-			},
-			{
-				"name": "LastName",
-				"type": "String"
-			},
-			{
-				"name": "Suffix",
-				"type": "String"
-			},
-			{
-				"name": "CompanyName",
-				"type": "String"
-			},
-			{
-				"name": "SalesPerson",
-				"type": "String"
-			},
-			{
-				"name": "EmailAddress",
-				"type": "String"
-			},
-			{
-				"name": "Phone",
-				"type": "String"
-			},
-			{
-				"name": "PasswordHash",
-				"type": "String"
-			},
-			{
-				"name": "PasswordSalt",
-				"type": "String"
-			},
-			{
-				"name": "rowguid",
-				"type": "String"
-			},
-			{
-				"name": "ModifiedDate",
+				"name": "ProductGroup",
 				"type": "String"
 			}
 		]
-	},
-	"type": "Microsoft.DataFactory/factories/datasets"
+	}
 }

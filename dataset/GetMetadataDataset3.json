@@ -1,5 +1,5 @@
 {
-	"name": "SourceDataset",
+	"name": "GetMetadataDataset3",
 	"properties": {
 		"description": "Connection to your source data store.",
 		"linkedServiceName": {
@@ -7,9 +7,6 @@
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
-			"fileName": {
-				"type": "string"
-			},
 			"SourceContainer": {
 				"type": "string"
 			},
@@ -22,10 +19,6 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": {
-					"value": "@dataset().fileName",
-					"type": "Expression"
-				},
 				"folderPath": {
 					"value": "@dataset().SourceDirectory",
 					"type": "Expression"

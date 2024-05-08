@@ -1,15 +1,17 @@
 {
-	"name": "AzureSqlDatabaseSinkDataset",
+	"name": "AzureSqlTable2",
 	"properties": {
-		"description": "Connection to your destination data store.",
 		"linkedServiceName": {
 			"referenceName": "AzureSqlDatabase3",
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
-			"sinkTableName": {
+			"sinkTabaleName1": {
 				"type": "string"
 			}
+		},
+		"folder": {
+			"name": "Practice"
 		},
 		"annotations": [],
 		"type": "AzureSqlTable",
@@ -17,10 +19,9 @@
 		"typeProperties": {
 			"schema": "dbo",
 			"table": {
-				"value": "@dataset().sinkTableName",
+				"value": "@dataset().sinkTabaleName1",
 				"type": "Expression"
 			}
 		}
-	},
-	"type": "Microsoft.DataFactory/factories/datasets"
+	}
 }

@@ -1,13 +1,13 @@
 {
-	"name": "pipeline2",
+	"name": "Bulk Copy from Files to Database2",
 	"properties": {
 		"activities": [
 			{
-				"name": "Get Metadata1",
+				"name": "Get Files",
 				"type": "GetMetadata",
 				"dependsOn": [],
 				"policy": {
-					"timeout": "0.12:00:00",
+					"timeout": "7.00:00:00",
 					"retry": 0,
 					"retryIntervalInSeconds": 30,
 					"secureOutput": false,
@@ -16,15 +16,15 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataset": {
-						"referenceName": "DelimitedText3",
+						"referenceName": "GetMetadataDataset3",
 						"type": "DatasetReference",
 						"parameters": {
-							"ContainerName": {
-								"value": "@pipeline().parameters.ContainerName",
+							"SourceContainer": {
+								"value": "@pipeline().parameters.SourceContainer",
 								"type": "Expression"
 							},
-							"FolderName": {
-								"value": "@pipeline().parameters.FolderName",
+							"SourceDirectory": {
+								"value": "@pipeline().parameters.SourceDirectory",
 								"type": "Expression"
 							}
 						}
@@ -33,9 +33,8 @@
 						"childItems"
 					],
 					"storeSettings": {
-						"type": "AzureBlobStorageReadSettings",
-						"recursive": true,
-						"enablePartitionDiscovery": false
+						"type": "AzureBlobFSReadSettings",
+						"recursive": true
 					},
 					"formatSettings": {
 						"type": "DelimitedTextReadSettings"
@@ -43,11 +42,11 @@
 				}
 			},
 			{
-				"name": "ForEach1",
+				"name": "ForEachFile",
 				"type": "ForEach",
 				"dependsOn": [
 					{
-						"activity": "Get Metadata1",
+						"activity": "Get Files",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -56,17 +55,16 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('Get Metadata1').output.childItems",
+						"value": "@activity('Get Files').output.childItems",
 						"type": "Expression"
 					},
-					"isSequential": false,
 					"activities": [
 						{
-							"name": "Copy data1",
+							"name": "CopyFiles",
 							"type": "Copy",
 							"dependsOn": [],
 							"policy": {
-								"timeout": "0.12:00:00",
+								"timeout": "7.00:00:00",
 								"retry": 0,
 								"retryIntervalInSeconds": 30,
 								"secureOutput": false,
@@ -78,8 +76,7 @@
 									"type": "DelimitedTextSource",
 									"storeSettings": {
 										"type": "AzureBlobFSReadSettings",
-										"recursive": true,
-										"enablePartitionDiscovery": false
+										"recursive": true
 									},
 									"formatSettings": {
 										"type": "DelimitedTextReadSettings"
@@ -87,36 +84,25 @@
 								},
 								"sink": {
 									"type": "AzureSqlSink",
-									"writeBehavior": "insert",
-									"sqlWriterUseTableLock": false,
-									"tableOption": "autoCreate",
-									"disableMetricsCollection": false
+									"tableOption": "autoCreate"
 								},
-								"enableStaging": false,
-								"translator": {
-									"type": "TabularTranslator",
-									"typeConversion": true,
-									"typeConversionSettings": {
-										"allowDataTruncation": true,
-										"treatBooleanAsNumber": false
-									}
-								}
+								"enableStaging": false
 							},
 							"inputs": [
 								{
-									"referenceName": "DelimitedText4",
+									"referenceName": "SourceDataset",
 									"type": "DatasetReference",
 									"parameters": {
-										"FileName": {
+										"fileName": {
 											"value": "@item().name",
 											"type": "Expression"
 										},
-										"ContrainterName": {
-											"value": "@pipeline().parameters.ContainerName",
+										"SourceContainer": {
+											"value": "@pipeline().parameters.SourceContainer",
 											"type": "Expression"
 										},
-										"FolderName": {
-											"value": "@pipeline().parameters.FolderName",
+										"SourceDirectory": {
+											"value": "@pipeline().parameters.SourceDirectory",
 											"type": "Expression"
 										}
 									}
@@ -124,10 +110,10 @@
 							],
 							"outputs": [
 								{
-									"referenceName": "AzureSqlTable2",
+									"referenceName": "AzureSqlDatabaseSinkDataset2",
 									"type": "DatasetReference",
 									"parameters": {
-										"sinkTabaleName1": {
+										"sinkTableName": {
 											"value": "@item().name",
 											"type": "Expression"
 										}
@@ -140,13 +126,13 @@
 			}
 		],
 		"parameters": {
-			"FolderName": {
-				"type": "string",
-				"defaultValue": "StorageFiles"
-			},
-			"ContainerName": {
+			"SourceContainer": {
 				"type": "string",
 				"defaultValue": "input2"
+			},
+			"SourceDirectory": {
+				"type": "string",
+				"defaultValue": "StorageFiles"
 			}
 		},
 		"annotations": []

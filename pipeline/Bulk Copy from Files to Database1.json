@@ -1,5 +1,5 @@
 {
-	"name": "Bulk Copy from Files to Database",
+	"name": "Bulk Copy from Files to Database1",
 	"properties": {
 		"activities": [
 			{
@@ -16,15 +16,15 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataset": {
-						"referenceName": "DelimitedText3",
+						"referenceName": "GetMetadataDataset2",
 						"type": "DatasetReference",
 						"parameters": {
-							"FolderName": {
-								"value": "@pipeline().parameters.FolderName",
+							"SourceContainer": {
+								"value": "@pipeline().parameters.SourceContainer",
 								"type": "Expression"
 							},
-							"ContainerName": {
-								"value": "@pipeline().parameters.ContrainerName",
+							"SourceDirectory": {
+								"value": "@pipeline().parameters.SourceDirectory",
 								"type": "Expression"
 							}
 						}
@@ -33,7 +33,7 @@
 						"childItems"
 					],
 					"storeSettings": {
-						"type": "AzureBlobStorageReadSettings",
+						"type": "AzureBlobFSReadSettings",
 						"recursive": true
 					},
 					"formatSettings": {
@@ -73,63 +73,34 @@
 							"userProperties": [],
 							"typeProperties": {
 								"source": {
-									"type": "AzureSqlSource",
-									"queryTimeout": "02:00:00",
-									"partitionOption": "None"
+									"type": "DelimitedTextSource",
+									"storeSettings": {
+										"type": "AzureBlobFSReadSettings",
+										"recursive": true
+									},
+									"formatSettings": {
+										"type": "DelimitedTextReadSettings"
+									}
 								},
 								"sink": {
 									"type": "AzureSqlSink",
 									"tableOption": "autoCreate"
 								},
-								"enableStaging": false,
-								"translator": {
-									"type": "TabularTranslator",
-									"typeConversion": true,
-									"typeConversionSettings": {
-										"allowDataTruncation": true,
-										"treatBooleanAsNumber": false
-									}
-								}
-							},
-							"inputs": [
-								{
-									"referenceName": "AzureSqlDatabaseSinkDataset",
-									"type": "DatasetReference"
-								}
-							],
-							"outputs": [
-								{
-									"referenceName": "AzureSqlDatabaseSinkDataset1",
-									"type": "DatasetReference",
-									"parameters": {
-										"sinkTableName": {
-											"value": "@item().name",
-											"type": "Expression"
-										}
-									}
-								}
-							]
+								"enableStaging": false
+							}
 						}
 					]
 				}
 			}
 		],
 		"parameters": {
-			"FileName": {
-				"type": "string",
-				"defaultValue": "*csv"
+			"SourceContainer": {
+				"type": "string"
 			},
-			"FolderName": {
-				"type": "string",
-				"defaultValue": "StorageFiles"
-			},
-			"ContrainerName": {
-				"type": "string",
-				"defaultValue": "input2"
+			"SourceDirectory": {
+				"type": "string"
 			}
 		},
-		"annotations": [],
-		"lastPublishTime": "2024-04-18T18:21:53Z"
-	},
-	"type": "Microsoft.DataFactory/factories/pipelines"
+		"annotations": []
+	}
 }
